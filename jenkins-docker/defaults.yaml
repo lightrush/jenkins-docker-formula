@@ -1,0 +1,21 @@
+jenkins:
+  # Where's Docker Compose?
+  compose_executable: /usr/bin/docker-compose
+
+  # What Systemd services should the service start after? See pillar.example.
+  systemd_after_deps: []
+
+  # Where should the compose files be stored?
+  compose_dir: /opt/jenkins-docker
+
+  # Where should JENKINS_HOME be?
+  data_dir: /var/lib/jenkins
+
+  # Ownership of the Jenkins data dir. It seems like Jenkins runs as 1000 inside Docker.
+  # Check if we can choose the UID/GID. Otherwise changing these values will break things.
+  puid: 1000
+  pgid: 1000
+
+  # Environment variables passed to container as-is
+  environment_variables:
+    PORT: "53654"

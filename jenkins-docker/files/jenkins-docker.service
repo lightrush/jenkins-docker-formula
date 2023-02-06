@@ -1,0 +1,24 @@
+{%- from "jenkins-docker/map.jinja" import jenkins with context -%}
+[Unit]
+Description=Jenkins in Docker
+After=docker.service {% for dep in jenkins.systemd_after_deps %}{{ dep }} {% endfor %}
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+
+Environment="JENKINS_DATA={{ jenkins.data_dir }}" {% for name, value in jenkins.environment_variables.items() %}"{{ name }}={{ value }}" {% endfor %}
+WorkingDirectory={{ jenkins.compose_dir }}
+ExecStartPre=-{{ jenkins.compose_executable }} kill
+ExecStartPre=-{{ jenkins.compose_executable }} rm -f
+ExecStartPre=-{{ jenkins.compose_executable }} pull
+ExecStartPre=-{{ jenkins.compose_executable }} build
+
+ExecStart={{ jenkins.compose_executable }} up
+ExecStop={{ jenkins.compose_executable }} down
+
+Restart=always
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target
