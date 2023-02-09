@@ -1,3 +1,5 @@
+{%- from "jenkins-docker/map.jinja" import jenkins with context -%}
+
 version: "3.9"
 services:
   dind:
@@ -24,6 +26,10 @@ services:
       - "DOCKER_HOST=tcp://docker:2376"
       - "DOCKER_CERT_PATH=/certs/client"
       - "DOCKER_TLS_VERIFY=1"
+      {% for name, value in jenkins.environment_variables.items() -%}
+      - "{{ name }}={{ value }}"
+      {% endfor -%}
+
     ports:
       - "${PORT:-8080}:8080"
     volumes:
