@@ -28,8 +28,7 @@ services:
       - "DOCKER_TLS_VERIFY=1"
       {% for name, value in jenkins.environment_variables.items() -%}
       - "{{ name }}={{ value }}"
-      {% endfor -%}
-
+      {% endfor %}
     ports:
       - "${PORT:-8080}:8080"
     volumes:
