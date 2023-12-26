@@ -12,7 +12,7 @@ WorkingDirectory={{ jenkins.compose_dir }}
 ExecStartPre=-{{ jenkins.compose_executable }} kill
 ExecStartPre=-{{ jenkins.compose_executable }} rm -f
 ExecStartPre=-{{ jenkins.compose_executable }} pull
-ExecStartPre=-{{ jenkins.compose_executable }} build
+ExecStartPre=-{{ jenkins.compose_executable }} build --pull
 
 ExecStart={{ jenkins.compose_executable }} up
 ExecStop={{ jenkins.compose_executable }} down
