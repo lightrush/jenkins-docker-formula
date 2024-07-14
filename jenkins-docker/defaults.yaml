@@ -1,6 +1,6 @@
 jenkins:
   # Where's Docker Compose?
-  compose_executable: /usr/bin/docker-compose
+  compose_executable: /usr/bin/docker compose
 
   # What Systemd services should the service start after? See pillar.example.
   systemd_after_deps: []
